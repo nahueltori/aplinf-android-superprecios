@@ -1,23 +1,34 @@
 package com.aplinf.superprecios.ui;
 
-import android.os.Bundle;
+import java.text.DecimalFormat;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aplinf.superprecios.core.EstrategiaPromedio;
+import com.aplinf.superprecios.core.ListaDePrecios;
+import com.aplinf.superprecios.core.Precio;
+import com.aplinf.superprecios.core.Producto;
 import com.aplinf.ui.superprecios.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	private Button scanBtn;
-	private TextView contentTxt;
+	private Button scanBtn, compararBtn;
+	private EditText codigo,precio;
+	private TextView resultadoTxt,productoTxt;
+	
+	private ListaDePrecios sistemaPrecios;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +37,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		scanBtn = (Button)findViewById(R.id.scan_button);
 		scanBtn.setOnClickListener(this);
-		contentTxt = (TextView)findViewById(R.id.editCodigo);
+		compararBtn = (Button)findViewById(R.id.action_button);
+		compararBtn.setOnClickListener(this);
+		codigo = (EditText)findViewById(R.id.editCodigo);
+		precio = (EditText)findViewById(R.id.editPrecio);
+		resultadoTxt = (TextView)findViewById(R.id.textResultado);
+		productoTxt = (TextView)findViewById(R.id.textProducto);
+		
+		sistemaPrecios = new ListaDePrecios();
 	}
 
 	@Override
@@ -44,29 +62,66 @@ public class MainActivity extends Activity implements OnClickListener {
 			IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 			scanIntegrator.initiateScan();
 		}
+		if(v.getId()==R.id.action_button){
+			//Traigo datos de pantalla
+			double prodCodigo = Double.valueOf(codigo.getText().toString());
+			String precioStr = precio.getText().toString();
+			float prodPrecio = Float.valueOf(precioStr.replace(",", "."));
+			
+			//Proceso informacion
+			Producto producto = new Producto(prodCodigo);
+			sistemaPrecios.agregarPrecio(new Precio(prodPrecio, producto));
+			List<Precio> resultado = sistemaPrecios.compararPrecio(new EstrategiaPromedio(producto));
+			
+			//Limpio la pantalla
+			limpiarPantalla();
+
+			//Muestro en panalla
+			mostrarDatos(resultado);
+		}
 	}
 	
+	private void limpiarPantalla(){
+		codigo.setText("");
+		precio.setText("");
+		resultadoTxt.setText("");
+		productoTxt.setText("");
+	}
+
+	private void mostrarDatos(List<Precio> resultado){
+		Precio promedio = resultado.get(0);
+		productoTxt.setText(promedio.getProducto().getDescripcion());
+		String promedioStr = new DecimalFormat("#.##").format(promedio.getImporte());
+		resultadoTxt.setText("$" + promedioStr + " - ");
+		resultadoTxt.append(promedio.getDescripcion());
+	}
+
 	/**
 	 * Resultado del escaneo. 
 	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-		if (scanningResult != null) {
+		if (escaneoCorrecto(scanningResult)) {
 			String scanContent = scanningResult.getContents();
-			String scanFormat = scanningResult.getFormatName();
-			if (scanFormat.contentEquals("UPC_A")){
-				
-			}else{
-			    Toast toast = Toast.makeText(getApplicationContext(),
-			            "Formato de código incorrecto", Toast.LENGTH_SHORT);
-			        toast.show();
-			}
-			contentTxt.setText("CONTENT: " + scanContent);
-		}else{
-		    Toast toast = Toast.makeText(getApplicationContext(),
-		            "No se recibió información del escaneo", Toast.LENGTH_SHORT);
-		        toast.show();
+			codigo.setText(scanContent);
 		}
+	}
+	
+	private boolean escaneoCorrecto(IntentResult resultadoEscaneo){
+		String mensaje;
+		if (resultadoEscaneo != null) {
+			String scanFormat = resultadoEscaneo.getFormatName();
+			if (scanFormat.contentEquals("EAN_13")){
+				return true;
+			}else{
+				mensaje = "Formato de código incorrecto";
+			}
+		}else{
+		    mensaje = "No se recibió información del escaneo";
+		}
+	    Toast toast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT);
+        toast.show();
+		return false;
 	}
 
 }

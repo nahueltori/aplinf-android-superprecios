@@ -4,7 +4,7 @@
     <string name="app_name">SuperPrecios</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="boton_scan">Escanear</string>
+    <string name="boton_scan">Leer</string>
     <string name="boton_accion">Comparar</string>
     <string name="text1">Código de Producto:</string>
     <string name="text2">Precio:</string>
