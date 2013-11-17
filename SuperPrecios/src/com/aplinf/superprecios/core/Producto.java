@@ -1,14 +1,19 @@
 package com.aplinf.superprecios.core;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class Producto {
 
 	private double id;
 	private String descripcion;
 	private Precio precio;
+	private Super superMarket;
 	
 	public Producto(double codigo){
 		this.id = codigo;
 		this.descripcion = "";
+		this.superMarket = new Super();
 		this.precio = new Precio(0, this);
 	}
 	
