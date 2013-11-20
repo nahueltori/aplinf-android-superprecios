@@ -3,9 +3,10 @@ package com.aplinf.superprecios.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaDePrecios implements PreciosFacade {
+public class ListaDePrecios {
 
 	List<Precio> lista;
+	
 	List<Producto> productos;
 	
 	public ListaDePrecios(){
@@ -49,18 +50,14 @@ public class ListaDePrecios implements PreciosFacade {
 		return filtrado;
 	}
 	
-	@Override
 	public void agregarPrecio(Precio precio){
 		buscarProducto(precio.getProducto());
 		lista.add(precio);
 	}
 
-	@Override
 	public List<Precio> compararPrecio(Estrategia estrategia) {
 		estrategia.setSistema(this);
-		Precio promedio = estrategia.compararPrecio();
-		ArrayList<Precio> resultados = new ArrayList<Precio>();
-		resultados.add(promedio);
+		List<Precio> resultados = estrategia.compararPrecio();
 		return resultados;
 	}
 

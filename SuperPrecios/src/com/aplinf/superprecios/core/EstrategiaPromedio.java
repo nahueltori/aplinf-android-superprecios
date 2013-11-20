@@ -1,5 +1,6 @@
 package com.aplinf.superprecios.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EstrategiaPromedio extends Estrategia {
@@ -17,7 +18,7 @@ public class EstrategiaPromedio extends Estrategia {
 	}
 
 	@Override
-	public Precio compararPrecio() {
+	public List<Precio> compararPrecio() {
 		precios = sistema.filtrarPrecios(producto);
 		float promedio = 0;
 		float total = 0;
@@ -27,7 +28,9 @@ public class EstrategiaPromedio extends Estrategia {
 		promedio = total / precios.size();
 		Precio precioProm = new Precio(promedio, producto);
 		precioProm.setDescripcion("Precio promedio");
-		return precioProm;
+		ArrayList<Precio> resultado = new ArrayList<Precio>();
+		resultado.add(precioProm);
+		return resultado;
 	}
 
 }

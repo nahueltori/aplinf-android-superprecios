@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aplinf.superprecios.core.EstrategiaPromedio;
-import com.aplinf.superprecios.core.ListaDePrecios;
 import com.aplinf.superprecios.core.Precio;
 import com.aplinf.superprecios.core.Producto;
+import com.aplinf.superprecios.core.SistemaPrecios;
 import com.aplinf.ui.superprecios.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private EditText codigo,precio;
 	private TextView resultadoTxt,productoTxt;
 	
-	private ListaDePrecios sistemaPrecios;
+	private SistemaPrecios sistemaPrecios;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		resultadoTxt = (TextView)findViewById(R.id.textResultado);
 		productoTxt = (TextView)findViewById(R.id.textProducto);
 		
-		sistemaPrecios = new ListaDePrecios();
+		sistemaPrecios = new SistemaPrecios();
 	}
 
 	@Override

@@ -9,6 +9,7 @@ public class Precio {
 	private float importe;
 	private Date fecha;
 	private String descripcion;
+	private Super supermercado;
 	
 	public Precio(float importe, Producto prod){
 		this.id = 0;
@@ -16,6 +17,7 @@ public class Precio {
 		this.importe = importe;
 		this.fecha = new Date();
 		this.descripcion = "";
+		this.supermercado = new Super();
 	}
 	
 	public void setProducto(Producto prod){
@@ -48,6 +50,18 @@ public class Precio {
 	
 	public String getDescripcion(){
 		return descripcion;
+	}
+	
+	public boolean menor(Precio p){
+		return this.importe < p.importe;
+	}
+	
+	public boolean mayor(Precio p){
+		return this.importe > p.importe;
+	}
+	
+	public boolean igual(Precio p){
+		return this.importe == p.importe;
 	}
 	
 }
