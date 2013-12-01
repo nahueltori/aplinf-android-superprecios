@@ -4,14 +4,14 @@ import java.util.Date;
 
 public class Precio {
 
-	private int id;
+	private long id;
 	private Producto producto;
-	private float importe;
+	private double importe;
 	private Date fecha;
 	private String descripcion;
 	private Super supermercado;
 	
-	public Precio(float importe, Producto prod){
+	public Precio(double importe, Producto prod){
 		this.id = 0;
 		this.producto = prod;
 		this.importe = importe;
@@ -24,7 +24,7 @@ public class Precio {
 		this.producto = prod;
 	}
 	
-	public void setId(int id){
+	public void setId(long id){
 		this.id = id;
 	}
 	
@@ -32,7 +32,7 @@ public class Precio {
 		this.descripcion = descr;
 	}
 	
-	public int getId(){
+	public long getId(){
 		return id;
 	}
 	
@@ -40,7 +40,7 @@ public class Precio {
 		return producto;
 	}
 
-	public float getImporte(){
+	public double getImporte(){
 		return importe;
 	}
 	

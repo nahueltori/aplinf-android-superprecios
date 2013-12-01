@@ -3,17 +3,22 @@ package com.aplinf.superprecios.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aplinf.superprecios.sql.PreciosDataSource;
+
 public class ListaDePrecios {
 
 	List<Precio> lista;
 	
 	List<Producto> productos;
 	
-	public ListaDePrecios(){
+	PreciosDataSource datos;
+	
+	public ListaDePrecios(PreciosDataSource datos){
+		this.datos = datos;
 		lista = new ArrayList<Precio>();
 		productos = new ArrayList<Producto>();
-		productos.add(new Producto(Double.valueOf("7794851001028"), "Plasticola Escolar 40 grs."));
-		productos.add(new Producto(Double.valueOf("779000"), "Producto de prueba Nahuel"));
+		productos.add(new Producto(Long.valueOf("7795735000069"), "Pan dulce Don Satur con frutas"));
+		productos.add(new Producto(Long.valueOf("7791813420521"), "Sprite 500ml."));
 	}
 	
 	public List<Precio> getLista(){
@@ -41,18 +46,18 @@ public class ListaDePrecios {
 	}
 	
 	public List<Precio> filtrarPrecios(Producto prod){
-		List<Precio> filtrado = new ArrayList<Precio>();
-		for(Precio p : lista){
-			if(p.getProducto().equals(prod)){
-				filtrado.add(p);
-			}
-		}
+		datos.open();
+		List<Precio> filtrado = datos.getPrecios(prod);
+		datos.close();
 		return filtrado;
 	}
 	
 	public void agregarPrecio(Precio precio){
 		buscarProducto(precio.getProducto());
 		lista.add(precio);
+		datos.open();
+		datos.crearPrecio(precio);
+		datos.close();
 	}
 
 	public List<Precio> compararPrecio(Estrategia estrategia) {

@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		resultadoTxt = (TextView)findViewById(R.id.textResultado);
 		productoTxt = (TextView)findViewById(R.id.textProducto);
 		
-		sistemaPrecios = new SistemaPrecios();
+		sistemaPrecios = new SistemaPrecios(this);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		if(v.getId()==R.id.action_button){
 			//Traigo datos de pantalla
-			double prodCodigo = Double.valueOf(codigo.getText().toString());
+			long prodCodigo = Long.valueOf(codigo.getText().toString());
 			String precioStr = precio.getText().toString();
 			float prodPrecio = Float.valueOf(precioStr.replace(",", "."));
 			

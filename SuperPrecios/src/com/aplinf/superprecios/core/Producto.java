@@ -1,23 +1,20 @@
 package com.aplinf.superprecios.core;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class Producto {
 
-	private double id;
+	private long id;
 	private String descripcion;
 	private Precio precio;
 	private Super superMarket;
 	
-	public Producto(double codigo){
+	public Producto(long codigo){
 		this.id = codigo;
 		this.descripcion = "";
 		this.superMarket = new Super();
 		this.precio = new Precio(0, this);
 	}
 	
-	public Producto(double codigo, String descripcion){
+	public Producto(long codigo, String descripcion){
 		this.id = codigo;
 		this.descripcion = descripcion;
 		this.precio = new Precio(0, this);
@@ -31,7 +28,7 @@ public class Producto {
 		this.precio = new Precio(importe, this);
 	}
 	
-	public double getCodigo(){
+	public long getCodigo(){
 		return id;
 	}
 	
@@ -39,7 +36,7 @@ public class Producto {
 		return descripcion;
 	}
 	
-	public float getImporte(){
+	public double getImporte(){
 		return precio.getImporte();
 	}
 	
