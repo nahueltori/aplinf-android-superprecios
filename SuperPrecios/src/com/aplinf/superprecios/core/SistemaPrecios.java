@@ -24,5 +24,8 @@ public class SistemaPrecios {
 	public List<Precio> compararPrecio(Estrategia estrategia){
 		return sistema.compararPrecio(estrategia);
 	}
-	
+
+	public void buscarProducto(Producto producto){
+		sistema.buscarProducto(producto);
+	}
 }

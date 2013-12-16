@@ -5,7 +5,8 @@ import java.util.List;
 
 public class EstrategiaPromedio extends Estrategia {
 
-	Producto producto;
+	public static final int ESTRAT_PROMEDIO = 1;
+
 	List<Precio> precios;
 	
 	/**
@@ -13,8 +14,7 @@ public class EstrategiaPromedio extends Estrategia {
 	 * y devuelve ese valor.
 	 * @param producto
 	 */
-	public EstrategiaPromedio(Producto producto){
-		this.producto = producto;
+	public EstrategiaPromedio(){
 	}
 
 	@Override

@@ -9,4 +9,17 @@
     <string name="text1">Código de Producto:</string>
     <string name="text2">Precio:</string>
     
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    
+    <string name="pref_comparacion">Modo de comparación</string>
+    <string name="pref_estrat_comparacion_summary">Elije el modo de comparar los precios</string>
+    <string name="pref_sync_frequency">Sync frequency</string>
+    <string name="pref_sync_frequency_summary">Set the sync frequency</string>
+    <string name="pref_user_name">Set username</string>
+    <string name="pref_user_name_summary">Set your username</string>
+     
+    <string name="pref_user_profile">User Profile</string>
+    <string name="pref_update_setting">Update Settings</string>
+    
 </resources>

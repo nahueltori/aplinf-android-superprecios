@@ -5,15 +5,15 @@ import java.util.List;
 
 public class EstrategiaMinMax extends Estrategia {
 
-	Producto producto;
+	public static final int ESTRAT_MINMAX = 2;
+
 	List<Precio> precios;
 	
 	/**
 	 * Busca el precio mínimo y el máximo para el producto especificado.
 	 * @param producto
 	 */
-	public EstrategiaMinMax(Producto producto){
-		this.producto = producto;
+	public EstrategiaMinMax(){
 	}
 
 	@Override
@@ -28,7 +28,9 @@ public class EstrategiaMinMax extends Estrategia {
 				maximo = p;
 		}
 		minimo.setDescripcion("Mejor precio encontrado");
+		minimo.setProducto(producto);
 		maximo.setDescripcion("Precio más caro");
+		maximo.setProducto(producto);
 		ArrayList<Precio> resultado = new ArrayList<Precio>();
 		resultado.add(minimo);
 		resultado.add(maximo);

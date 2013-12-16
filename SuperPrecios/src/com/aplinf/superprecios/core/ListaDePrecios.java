@@ -19,6 +19,8 @@ public class ListaDePrecios {
 		productos = new ArrayList<Producto>();
 		productos.add(new Producto(Long.valueOf("7795735000069"), "Pan dulce Don Satur con frutas"));
 		productos.add(new Producto(Long.valueOf("7791813420521"), "Sprite 500ml."));
+		productos.add(new Producto(Long.valueOf("7790639001365"), "Cunnington Lima Limon 2.25L"));
+		productos.add(new Producto(Long.valueOf("7794635004795"), "Domino de animales 28 fichas"));
 	}
 	
 	public List<Precio> getLista(){
@@ -29,8 +31,9 @@ public class ListaDePrecios {
 	 * Busca el producto en la base para traerse la descripción.
 	 * Si no lo encuentra, lo agrega con una descripción estandar.
 	 * @param producto
+	 * @return 
 	 */
-	private void buscarProducto(Producto producto){
+	public void buscarProducto(Producto producto){
 		boolean encontrado = false;
 		for(Producto p : productos){
 			if(p.equals(producto)){
